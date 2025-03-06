@@ -25,6 +25,7 @@ app.post('/signup', async (req, res) => {
 
     const { users } = await serverClient.queryUsers({ name: username });
     if (users.length > 0) {
+      console.log('Sign Up Failed, Username already taken');
       return res.json({ message: 'User Already Exists' });
     }
 
@@ -39,6 +40,8 @@ app.post('/signup', async (req, res) => {
       username,
       hashedPassword,
     };
+    
+    console.log(username + ' Signing up!');
     res.json(response);
   } catch (error) {
     res.json(error);
@@ -49,6 +52,7 @@ app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const { users } = await serverClient.queryUsers({ name: username });
     if (users.length === 0) {
+      console.log('Sign In Failed, No User with given username');
       return res.json({ message: 'User Not Found' });
     }
 
@@ -59,6 +63,7 @@ app.post('/login', async (req, res) => {
 
     const token = serverClient.createToken(users[0].id);
     if (passwordMatch) {
+      console.log(username + ' Signing In!');
       res.json({
         token,
         firstName: users[0].firstName,
