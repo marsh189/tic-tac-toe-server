@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: 'http://localhost:3000', // Update with your React app's URL
+    origin: 'https://tic-tac-toe-e855.onrender.com', // Update with your React app's URL
     methods: ['GET', 'POST'],
   },
 });
