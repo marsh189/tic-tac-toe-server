@@ -5,6 +5,7 @@ const socketIO = require('socket.io');
 const mysql = require('mysql');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
 
 const app = express();
 const server = http.createServer(app);
@@ -16,6 +17,11 @@ const io = socketIO(server, {
 });
 
 var sessionMiddleware = session({
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000, // prune expired entries every 24h
+  }),
+  resave: false,
   secret: 'keyboard cat',
 });
 
