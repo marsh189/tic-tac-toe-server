@@ -21,7 +21,8 @@ var sessionMiddleware = session({
   store: new MemoryStore({
     checkPeriod: 86400000, // prune expired entries every 24h
   }),
-  resave: saveUninitialized,
+  resave: true,
+  saveUninitialized: true,
   secret: 'keyboard cat',
 });
 
